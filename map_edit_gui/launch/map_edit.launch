@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="map_pcd" default="$(find map_edit_gui)/data/allring.pcd"/>
+
+  <node pkg="pcl_ros" type="pcd_to_pointcloud" name="pcd_to_pointcloud" args="$(arg map_pcd)" output="screen">
+    <remap from="cloud_pcd" to="mapcloud" />
+    <param name="frame_id" value="map" />
+    <param name="latch" value="true" />
+  </node>
+
+  <node pkg="map_edit_gui" type="map_edit_gui_node" name="map_edit_gui" output="screen"> 
+
+    <!-- If transform is required for the point cloud from pcd_to_pointcloud, in my case, the pcd was built by lego loam -->
+    <param name="rotate_around_x" value="0" />
+    <param name="rotate_around_y" value="0" />
+    <param name="rotate_around_z" value="0" />
+    <param name="translate_x" value="0" />
+    <param name="translate_y" value="0" />
+    <param name="translate_z" value="0" />
+  </node> 
+
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find map_edit_gui)/config/my_rviz.rviz" required="true"/>
+</launch>
