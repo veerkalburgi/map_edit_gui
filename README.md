@@ -66,7 +66,7 @@ Keyboard z:
 
 Return to last step
 ```
-<
+
 
 ### Button of selected points
 The selection is implemented with aggregated selection.
